@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/css/card-3-column-animation-shadows-images.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="static/assets/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                                <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                    <h4 style="text-align: center;background: #a1b1d1;">Pays de residence</h4>
+                                    <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                    <input type="checkbox" id="checkall" onClick="checkAll('residence')"> <label> Tous</label></input>
+                                        </div>
+                                        <div class="col">
+                                    <input type="checkbox" id="uncheckall" onClick="uncheckAll('residence')"> <label> Aucun</label></input>
+                                        </div>
+                                    </div>
+                                    {% for country in countries%}
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="residence"  data="{{country.name}}" type="checkbox" id="{{country.code}}"><label class="form-check-label" for="form-check">{{country.name}}</label>
+                                            </div>
+                                    {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                                <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                    <h4 style="text-align: center;background: #a1b1d1;">Pays d'origine</h4>
+                                    <div class="card-body">
+                                    {% for behavior in behaviors  %}
+                                        <div class="form-check"><input class="form-check-input" name="origine" data="{{behavior.name}}" short-name="{{behavior.short_name}}" type="checkbox" id="{{behavior.id}}"><label class="form-check-label" for="formCheck-1">{{behavior.short_name}}</label></div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                               <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                    <h4 style="text-align: center;background: #a1b1d1;">Age</h4>
+                                    <div class="card-body" style="position: relative;"><input type="text" placeholder="Minium - Maximum" autofocus="" name="age_input" style="margin-bottom: 10px;"><button class="btn btn-primary" type="button" style="position: absolute;bottom: 2px;right: 8px;">Rajouter</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                <button class="btn btn-primary" type="button" id="submit" onclick="checked()" >Générer le fichier csv</button>
+            </div>  
+            <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                <a id="download" href="" style="display:none"><button class="btn btn-success" type="button">Télécharger le fichier</button></a>
+            </div>  
+            </div>
+        </div>
+    </div>
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="statitc/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/assets/js/bs-init.js"></script>
+    <script src="static/assets/js/index.js"></script>
+
+</body>
+
+</html>
