@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="static/assets/css/card-3-column-animation-shadows-images.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="static/assets/css/styles.css">
+
 </head>
 
 <body>
@@ -19,28 +20,25 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-                                <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                <div class="bg-light border rounded shadow card">
                                     <h4 style="text-align: center;background: #a1b1d1;">Pays de residence</h4>
                                     <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                    <input type="checkbox" id="checkall" onClick="checkAll('residence')"> <label> Tous</label></input>
-                                        </div>
-                                        <div class="col">
-                                    <input type="checkbox" id="uncheckall" onClick="uncheckAll('residence')"> <label> Aucun</label></input>
-                                        </div>
+                                    <div class="row" style="justify-content:space-evenly; margin-bottom:20px">
+                                        <div class="form-check"><input id ="checkall" class="form-check-input" type="checkbox" onClick="checkAll('residence')">
+                                        <label class="form-check-label" for="formCheck-1">Tous</label></div>
+                                        <div class="form-check"><input class="form-check-input" id="uncheckall" type="checkbox" onClick="uncheckAll('residence')">
+                                        <label class="form-check-label" for="formCheck-1">Aucun</label></div>
                                     </div>
                                     {% for country in countries%}
                                         <div class="form-check">
                                             <input class="form-check-input" name="residence"  data="{{country.name}}" type="checkbox" id="{{country.code}}"><label class="form-check-label" for="form-check">{{country.name}}</label>
                                             </div>
                                     {% endfor %}
-
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-                                <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
+                                <div class="bg-light border rounded shadow card" >
                                     <h4 style="text-align: center;background: #a1b1d1;">Pays d'origine</h4>
                                     <div class="card-body">
                                     {% for behavior in behaviors  %}
@@ -52,14 +50,24 @@
                             <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
                                <div class="bg-light border rounded shadow card" data-bs-hover-animate="pulse">
                                     <h4 style="text-align: center;background: #a1b1d1;">Age</h4>
-                                    <div class="card-body" style="position: relative;"><input type="text" placeholder="Minium - Maximum" autofocus="" name="age_input" style="margin-bottom: 10px;"><button class="btn btn-primary" type="button" style="position: absolute;bottom: 2px;right: 8px;">Rajouter</button></div>
+                                    <div class="card-body" style="position: relative;" name="age_body">
+                                    <div>
+                                    <div class="row" style="align-items: center;justify-content: center; margin-bottom:10px;">
+                                        <div class="col text-center d-inline-flex flex-row justify-content-around" name="age_col">
+                                            <label>Min:</label><input type="number" min="13" class="age_min" max="65" value="13" onchange ="checkInputMin(this)"/>
+                                            <label>Max:</label><input type="number" min="13" class="age_max" max="65" value="65" />
+                                        </div>
+                                    </div>
+                                    </div>
+                                        <button class="btn btn-primary" onClick="add_age_range()" type="button" style="position: absolute;bottom: -40px;right: 8px;">Rajouter</button>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
             <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-                <button class="btn btn-primary" type="button" id="submit" onclick="checked()" >Générer le fichier csv</button>
+                <button class="btn btn-primary" type="button" id="submit" onclick="generate()" >Générer le fichier csv</button>
             </div>  
             <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
                 <a id="download" href="" style="display:none"><button class="btn btn-success" type="button">Télécharger le fichier</button></a>
@@ -68,7 +76,7 @@
         </div>
     </div>
     <script src="static/assets/js/jquery.min.js"></script>
-    <script src="statitc/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/assets/js/bs-init.js"></script>
     <script src="static/assets/js/index.js"></script>
 
