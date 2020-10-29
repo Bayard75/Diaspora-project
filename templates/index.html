@@ -69,9 +69,15 @@
                 </section>
             <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
                 <button class="btn btn-primary" type="button" id="submit" onclick="generate()" >Générer le fichier csv</button>
-            </div>  
-            <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
-                <a id="download" href="" style="display:none"><button class="btn btn-success" type="button">Télécharger le fichier</button></a>
+            </div>
+    <div class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" id="loading" style="display:none" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                        <button class="btn btn-dark" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            En cours de traitement...
+            </button> 
+    </div>
+            <div style="display:none" id="col_download" class="col-auto col-sm-12 col-md-12 col-lg-4 col-xl-4" style="padding-top: 15px;padding-bottom: 15px;padding-right: 15px;padding-left: 15px;">
+                <a id="download" href=""><button class="btn btn-success" type="button">Télécharger le fichier</button></a>
             </div>  
             </div>
         </div>

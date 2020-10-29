@@ -32,7 +32,8 @@ function generate()
       let body = {residence : residence_list, origine: origine_list, age_ranges: age_ranges};
       let myHeaders = new Headers();
       myHeaders.append("Content-Type","application/json"); //Important or request.get_json() returns None 
-
+      let loading = document.getElementById('loading')
+      loading.style.display = 'block'  
       fetch('/home', {
               // Specify the method
               method: 'POST',
@@ -47,8 +48,10 @@ function generate()
             })
             .then(function (data)
             {
+
                 let path = data['path']
-                let link = document.getElementById('download')
+                loading.style.display = 'none'
+                let link = document.getElementById('col_download')
                 link.style.display = "block";  
                 link.setAttribute('href', path)  
             })
