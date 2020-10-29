@@ -73,6 +73,11 @@ function uncheckAll(card)
     });
 }
 
+function remove_age_range()
+{
+    let age_col = document.getElementsByName('age_body')[0]
+    age_col.lastChild.remove()
+}
 function add_age_range()
 {
     console.log('la')
