@@ -56,7 +56,7 @@ function generate()
                 let path = data['path']
                 loading.style.display = 'none'
                 link.style.display = "block";  
-                link.setAttribute('href', path)  
+                document.getElementById('download').setAttribute('href', path)  
             })
 
 }
