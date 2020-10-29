@@ -2,7 +2,11 @@ function generate()
 {
     let residence_checked = document.querySelectorAll('input[name=residence]:checked');
     let origine_checked = document.querySelectorAll('input[name=origine]:checked');
-
+    let link = document.getElementById('col_download')
+    if (link.style.display == 'block')
+    {
+        link.style.display ='none'
+    }
     let residence_list = []
     residence_checked.forEach((box) => {
         let name = box.getAttribute('data')
@@ -51,7 +55,6 @@ function generate()
 
                 let path = data['path']
                 loading.style.display = 'none'
-                let link = document.getElementById('col_download')
                 link.style.display = "block";  
                 link.setAttribute('href', path)  
             })
