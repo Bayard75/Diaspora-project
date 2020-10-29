@@ -1,13 +1,15 @@
 import requests
 from urllib.parse import quote
+
 from flask import Flask, render_template, request, jsonify, make_response
 from datetime import datetime
 
 import pandas as pd
+import os
 
 app = Flask(__name__)
-TOKEN = "EAABsbCS1iHgBAHTmw316FuXn1YmFCwT5qZCy7ZAG3AuADr7yCW861uTQzYt5VPdj76EOrBi5GwXcH5ta9nfkhwUZB659YL7Eg8jtavWZAmT9FJFkIYsPKAjRKME4q3W6lKQ3cYAwCy4tiCv69OzrBRaQnHOu5ngDzygkiZBcGrgZDZD"
-    
+TOKEN = os.environ.get('FB_TOKEN')
+print(TOKEN)
 
 def get_behaviors():
     behaviors = [{
