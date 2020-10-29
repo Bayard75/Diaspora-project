@@ -19,14 +19,17 @@ function generate()
     
     let ages = document.getElementsByName("age_col")
     console.log(ages.length)
+    let age_ranges = []
     ages.forEach((box) => {
         let inputs = $(box).find('input')  
+        let age_list = []
         for (i in inputs)
         {
-            console.log(inputs[i].value)
+            age_list.push(inputs[i].value)
         }
+        age_ranges.push(age_list.slice(0,2))
     });
-      let body = {residence : residence_list, origine: origine_list};
+      let body = {residence : residence_list, origine: origine_list, age_ranges: age_ranges};
       let myHeaders = new Headers();
       myHeaders.append("Content-Type","application/json"); //Important or request.get_json() returns None 
 
@@ -78,8 +81,8 @@ function add_age_range()
     let template = `
     <div class="row" style="align-items: center;justify-content: center; margin-bottom:10px;">
     <div class="col text-center d-inline-flex flex-row justify-content-around" name="age_col">
-        <div><label>Min:</label><input type="number" min="13" class="age_min" max="65" value="13" /></div>
-        <div><label>Max:</label><input type="number" min="13" class="age_max" max="65" value="65" /></div>
+        <label>Min:</label><input type="number" min="13" class="age_min" max="65" value="13" onchange ="checkInputMin(this)"/>
+        <label>Max:</label><input type="number" min="13" class="age_max" max="65" value="65" onchange="checkInputMax(this)" />
     </div>
 </div>    `
     let age_col = document.getElementsByName('age_body')[0]
@@ -102,5 +105,43 @@ function checkInputMin(element)
     if (element.value < 13)
     {
         element.value = 13;
+    }
+}
+
+function checkInputMax(element)
+{
+    let previous_sibling = element.previousSibling.previousSibling.previousSibling;
+    let min_value = previous_sibling.value;
+    if (element.value < min_value)
+    {
+        element.value = min_value;
+    }
+    if (element.value > 65)
+    {
+        element.value = 65;
+    }
+    if (element.value < 13)
+    {
+        element.value = 13;
+    }
+}
+
+function allNoneCheck(element)
+{
+    let checkboxAll = document.getElementById('checkall')
+    let checkboxNone = document.getElementById('uncheckall')
+    if (element.checked == true)
+    {
+        if (checkboxNone.checked == true)
+        {
+            checkboxNone.checked = false
+        }
+    }
+    if (element.checked == false)
+    {
+        if (checkboxAll.checked == true)
+        {
+            checkboxAll.checked = false
+        }
     }
 }

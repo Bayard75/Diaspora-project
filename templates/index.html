@@ -31,7 +31,7 @@
                                     </div>
                                     {% for country in countries%}
                                         <div class="form-check">
-                                            <input class="form-check-input" name="residence"  data="{{country.name}}" type="checkbox" id="{{country.code}}"><label class="form-check-label" for="form-check">{{country.name}}</label>
+                                            <input class="form-check-input" name="residence" onclick="allNoneCheck(this)" data="{{country.name}}" type="checkbox" id="{{country.code}}"><label class="form-check-label" for="form-check">{{country.name}}</label>
                                             </div>
                                     {% endfor %}
                                     </div>
@@ -55,7 +55,7 @@
                                     <div class="row" style="align-items: center;justify-content: center; margin-bottom:10px;">
                                         <div class="col text-center d-inline-flex flex-row justify-content-around" name="age_col">
                                             <label>Min:</label><input type="number" min="13" class="age_min" max="65" value="13" onchange ="checkInputMin(this)"/>
-                                            <label>Max:</label><input type="number" min="13" class="age_max" max="65" value="65" />
+                                            <label>Max:</label><input type="number" min="13" class="age_max" max="65" value="65" onchange="checkInputMax(this)" />
                                         </div>
                                     </div>
                                     </div>

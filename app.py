@@ -13,12 +13,12 @@ def get_behaviors():
     behaviors = [{
                     "id": "6023422105983",
                     "name": "A vécu en Côte d’Ivoire (anciennement Expats - Côte d’Ivoire)",
-                    "short_name": "Côte d'Ivoire"
+                    "short_name": "Cote d'Ivoire"
                 },
                 {
                     "id":"6023357000583",
                     "name": "A vécu au Sénégal (anciennement Expats - Sénégal)",
-                    "short_name": "Sénégal"
+                    "short_name": "Senegal"
                 }]
     return behaviors
 
@@ -44,10 +44,10 @@ def get_countries():
         "name": "Etats-Unis"
     },{
         "code": "SN",
-        "name": "Sénégal"
+        "name": "Senegal"
     },{
         "code": "CI",
-        "name": "Côte d'Ivoire"
+        "name": "Cote d'Ivoire"
     },{
         "code": "BE",
         "name": "Belgique"
@@ -89,7 +89,9 @@ def home():
     if request.method == 'POST':
         residence_wanted = request.get_json()["residence"]
         origine_wanted = request.get_json()["origine"]
-        path = generate_csv(residence_wanted, origine_wanted)
+        age_ranges = request.get_json()['age_ranges']
+        path = generate_csv(residence_wanted, origine_wanted,
+                            age_ranges)
         return make_response(jsonify({'status': 'ok', "path": path}))
 
     behaviors = get_behaviors()
@@ -97,23 +99,26 @@ def home():
     return render_template('index.html', behaviors=behaviors, countries=countries)
 
 
-def generate_csv(residence_wanted, origine_wanted, age_max="65", age_min="13"):
+def generate_csv(residence_wanted, origine_wanted, age_ranges):
     df = pd.DataFrame(columns=['Pays de residence', "Pays d'origine", "Age Minimum", "Age Maximum", "Nombre d'utilisateur Total", "Hommes", "Femmes"])
     for residence in residence_wanted:
         for origine in origine_wanted:
-            for gender in range(0,3):
-                if gender == 0:
-                    users_total = get_estimate(gender, residence['id'], origine['id'], origine["name"])
-                elif gender == 1:
-                    male_users = get_estimate(gender, residence['id'], origine['id'], origine["name"])
-                elif gender == 2:
-                    femele_users = get_estimate(gender, residence['id'], origine['id'], origine["name"])
-                    new_row = {"Pays de residence": residence["name"],
-                                "Pays d'origine": origine["short_name"],
-                                "Age Minimum": age_min, "Age Maximum": age_max,
-                                "Nombre d'utilisateur Total" : users_total, 
-                                "Hommes": male_users,  "Femmes": femele_users}
-                    df = df.append(new_row, ignore_index=True)
+            for ages in age_ranges:
+                age_min = ages[0]
+                age_max = ages[1]
+                for gender in range(0, 3):
+                    if gender == 0:
+                        users_total = get_estimate(gender, residence['id'], origine['id'], origine["name"], age_max, age_min)
+                    elif gender == 1:
+                        male_users = get_estimate(gender, residence['id'], origine['id'], origine["name"], age_max, age_min)
+                    elif gender == 2:
+                        femele_users = get_estimate(gender, residence['id'], origine['id'], origine["name"], age_max, age_min)
+                        new_row = {"Pays de residence": residence["name"],
+                                    "Pays d'origine": origine["short_name"],
+                                    "Age Minimum": age_min, "Age Maximum": age_max,
+                                    "Nombre d'utilisateur Total" : users_total, 
+                                    "Hommes": male_users,  "Femmes": femele_users}
+                        df = df.append(new_row, ignore_index=True)
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%Y_%H-%M-%S")
 
