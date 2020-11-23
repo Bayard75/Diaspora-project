@@ -81,7 +81,7 @@ def get_countries():
 def get_estimate(gender, residence_code, origine_id, origine_name, age_max=65, age_min=13):
     targeting_spec = '{"genders":[%s],"age_max":%s,"age_min":%s,"geo_locations":{"countries":["%s"],"location_types":["home","recent"]},"flexible_spec":[{"behaviors":[{"id":"%s","name":"%s"}]}]}' % (gender, age_max, age_min, residence_code, origine_id, origine_name)
     params = quote(targeting_spec, safe='')
-    url = f'https://graph.facebook.com/v7.0/act_1047742262329813/reachestimate?access_token={TOKEN}&__activeScenarioIDs=[]&__activeScenarios=[]&_app=ADS_MANAGER&_index=163&_reqName=adaccount%2Freachestimate&_reqSrc=AdsTargetingEstimatedReach.react&_sessionID=377669edb48eb987&include_headers=false&locale=fr_FR&method=get&pretty=0&suppress_http_code=1&targeting_spec={params}&xref=f2fd6fe30bbdf3'
+    url = f'https://graph.facebook.com/v7.0/act_1047742262329813/reachestimate?access_token=EAABsbCS1iHgBAAspvjIZCwE1mqv6tE3xitQ8dZARWvsWvK10EPZBZBcItZBheyfM6eaBVVA33ujzcd7ghQ57ZAbmmIWx76joAFLvtKccziDnMMgFKFw1LWX8krb18r7YJcdYcfEOUZBerJbeFmZCC407bmZAmBwhBlj0ZD&__cppo=1&__activeScenarioIDs=%5B%5D&__activeScenarios=%5B%5D&_app=ADS_MANAGER&_index=104&_reqName=adaccount%2Freachestimate&_reqSrc=AdsTargetingEstimatedReach.react&_sessionID=6702a31bb3abbac2&include_headers=false&locale=fr_FR&method=get&pretty=0&suppress_http_code=1&targeting_spec={params}&xref=f15b2e07c0f6394'
     res = requests.get(url)
     return res.json()['data']['users']
 
